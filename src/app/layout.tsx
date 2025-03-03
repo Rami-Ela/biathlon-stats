@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import "/node_modules/flag-icons/css/flag-icons.min.css";
+import Image from "next/image";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,6 +30,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Link href="/">
+          <Image
+            className="absolute top-0 left-0"
+            src="/biathlon_logo.svg"
+            alt="Vercel logomark"
+            width={80}
+            height={80}
+          />
+        </Link>
         {children}
       </body>
     </html>
