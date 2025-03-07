@@ -1,20 +1,18 @@
 import { RaceResultTable } from "@/components/competitions/resultTable";
 import { Button } from "@/components/ui/button";
-import { Competition, RaceDetail } from "@/types/competitions";
-import { Event } from "@/types/events";
+import { RaceDetail } from "@/types/competitions";
 import Link from "next/link";
 
 interface RacePageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
+
 export default async function RacePage({ params }: RacePageProps) {
-  const { id } = params;
+  const { id } = await params;
   const res = await fetch(`http://localhost:3001/api/competitions/${id}`); //TODO: variabiliser l'url de l'API (ça ne marchera qu'en local là)
   const race: RaceDetail = await res.json();
-
-  console.log({ race });
 
   return (
     <div className="flex flex-col items-center gap-4">

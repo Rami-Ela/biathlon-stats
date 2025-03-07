@@ -2,12 +2,9 @@ import { getEventWithDetailsById } from "@/lib/api/events";
 import { NextApiResponse } from "next";
 import { NextRequest } from "next/server";
 
-export async function GET(
-  _request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function GET(request: NextRequest) {
   try {
-    const { id } = params; // Récupère l'ID depuis les paramètres de la route
+    const id = request.nextUrl.pathname.split("/").pop();
 
     if (!id) {
       return new Response(

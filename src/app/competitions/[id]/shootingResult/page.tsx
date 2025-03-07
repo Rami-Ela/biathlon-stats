@@ -9,13 +9,13 @@ import {
 import Link from "next/link";
 
 interface SkiResultPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default async function SkiResultPage({ params }: SkiResultPageProps) {
-  const { id } = params;
+  const { id } = await params;
   const res = await fetch(
     `https://www.biathlonresults.com/modules/sportapi/api/AnalyticResults?RaceId=${id}&TypeId=STTM`
   );

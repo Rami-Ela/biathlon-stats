@@ -25,8 +25,8 @@ export function EventsTable({ events }: EventsTableProps) {
       <TableCaption>Liste des événements pour la saison en cours</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead> Nom de l'événement </TableHead>
-          <TableHead> Date de l'événement </TableHead>
+          <TableHead> Nom de l&apos;événement </TableHead>
+          <TableHead> Date de l&apos;événement </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

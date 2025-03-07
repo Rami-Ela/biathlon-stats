@@ -7,6 +7,7 @@ export async function GET() {
     const athletes = await getAthletes();
     return new Response(JSON.stringify(athletes), { status: 200 });
   } catch (error) {
+    console.log(error);
     return new Response(
       JSON.stringify({ message: "Error fetching athletes data" }),
       { status: 400 }

@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  formatFullDisplayDate,
-  formatFullDisplayDateWithHour,
-} from "@/lib/date";
+import { formatFullDisplayDateWithHour } from "@/lib/date";
 import {
   Table,
   TableBody,
@@ -13,11 +10,8 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
-import { Event } from "@/types/events";
 import { useRouter } from "next/navigation";
 import { Competition } from "@/types/competitions";
-import { cx } from "class-variance-authority";
-import clsx from "clsx";
 import { ReactNode } from "react";
 import { Badge } from "../ui/badge";
 
@@ -42,7 +36,7 @@ export function CompetitionsTable({ competitions }: CompetitionsTableProps) {
   return (
     <Table>
       <TableCaption>
-        Liste des compétition pour l'événement séléctionné
+        Liste des compétition pour l&apos;événement séléctionné
       </TableCaption>
       <TableHeader>
         <TableRow>

@@ -3,12 +3,12 @@ import { Competition } from "@/types/competitions";
 import { Event } from "@/types/events";
 
 interface EventPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 export default async function EventPage({ params }: EventPageProps) {
-  const { id } = params;
+  const { id } = await params;
   const res = await fetch(`http://localhost:3001/api/events/${id}`);
   const eventDetail: { event: Event; competitions: Competition[] } =
     await res.json();
