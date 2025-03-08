@@ -5,14 +5,14 @@ export default async function Home() {
   let athletes = [];
   let events: Event[] = [];
   try {
-    const res = await fetch("http://localhost:3001/api/athletes");
+    const res = await fetch(`${process.env.DOMAIN_URL}/api/athletes`);
     athletes = await res.json();
   } catch (error) {
     console.error("Erreur lors du fetch :", error);
   }
   try {
     const eventRes = await fetch(
-      "http://localhost:3001/api/events?seasonId=2425&level=1"
+      `${process.env.DOMAIN_URL}/api/events?seasonId=2425&level=1`
     );
     events = await eventRes.json();
   } catch (error) {

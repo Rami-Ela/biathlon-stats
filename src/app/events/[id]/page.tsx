@@ -9,7 +9,7 @@ interface EventPageProps {
 }
 export default async function EventPage({ params }: EventPageProps) {
   const { id } = await params;
-  const res = await fetch(`http://localhost:3001/api/events/${id}`);
+  const res = await fetch(`${process.env.DOMAIN_URL}/api/events/${id}`);
   const eventDetail: { event: Event; competitions: Competition[] } =
     await res.json();
 
