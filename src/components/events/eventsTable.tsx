@@ -12,6 +12,8 @@ import {
 } from "../ui/table";
 import { Event } from "@/types/events";
 import { useRouter } from "next/navigation";
+import { Badge } from "../ui/badge";
+import { getFlagCountry } from "@/utils/flags";
 
 interface EventsTableProps {
   events: Event[];
@@ -19,6 +21,8 @@ interface EventsTableProps {
 
 export function EventsTable({ events }: EventsTableProps) {
   const router = useRouter();
+
+  console.log(events);
 
   return (
     <Table>
@@ -36,10 +40,18 @@ export function EventsTable({ events }: EventsTableProps) {
               onClick={() => router.push(`/events/${event.EventId}`)}
               key={event.EventId}
             >
-              <TableCell>{`${event.ShortDescription}`}</TableCell>
+              <TableCell>
+                {getFlagCountry(event.Nat)}
+                {` ${event.ShortDescription}`}
+              </TableCell>
               <TableCell>{`${formatFullDisplayDate(
                 event.FirstCompetitionDate
               )} - ${formatFullDisplayDate(event.EndDate)}`}</TableCell>
+              <TableCell>
+                {event.IsCurrent ? (
+                  <Badge variant={"destructive"}> En cours </Badge>
+                ) : null}
+              </TableCell>
             </TableRow>
           );
         })}
