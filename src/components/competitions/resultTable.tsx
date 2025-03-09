@@ -24,10 +24,10 @@ export function RaceResultTable({ raceResults }: RaceResultTableProps) {
 
   return (
     <Table>
-      <TableCaption>Liste des événements pour la saison en cours</TableCaption>
+      <TableCaption>Résultats de la course</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead> Classement </TableHead>
+          <TableHead> </TableHead>
           <TableHead> Athlète </TableHead>
           <TableHead> Temps de course </TableHead>
           <TableHead> Tirs </TableHead>

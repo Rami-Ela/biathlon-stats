@@ -1,11 +1,4 @@
 import { EventsTable } from "@/components/events/eventsTable";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-} from "@/components/ui/navigation-menu";
 import { Event } from "@/types/events";
 
 export default async function Home() {
@@ -27,11 +20,10 @@ export default async function Home() {
   }
 
   return (
-    <>
-      <div className="px-4 flex flex-col items-center gap-10">
-        <h1 className="text-2xl font-bold">Liste des courses</h1>
-        <EventsTable events={events} />
-      </div>
-    </>
+    <div className="flex flex-col items-center gap-10">
+      <h1 className="font-bold"> Liste des courses </h1>
+
+      <EventsTable events={events}></EventsTable>
+    </div>
   );
 }
