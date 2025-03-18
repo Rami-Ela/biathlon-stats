@@ -17,7 +17,8 @@ interface SkiResultPageProps {
 export default async function SkiResultPage({ params }: SkiResultPageProps) {
   const { id } = await params;
   const res = await fetch(
-    `https://www.biathlonresults.com/modules/sportapi/api/AnalyticResults?RaceId=${id}&TypeId=CRST`
+    `https://www.biathlonresults.com/modules/sportapi/api/AnalyticResults?RaceId=${id}&TypeId=CRST`,
+    { cache: "no-store" }
   );
   const race: RaceSkiResultDetail = await res.json(); // revoir le type
 

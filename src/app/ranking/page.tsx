@@ -2,7 +2,6 @@ import { RankingTable } from "@/components/ranking/rankingTable";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CupRanking } from "@/types/rankings";
 import Link from "next/link";
 
 export default async function Home() {

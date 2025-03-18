@@ -30,7 +30,8 @@ interface RaceResultTableProps {
 
 export async function RankingTable({ type }: RaceResultTableProps) {
   const res = await fetch(
-    `https://www.biathlonresults.com/modules/sportapi/api/CupResults?RT=385698&CupId=BT2425SWRLCP__${type}`
+    `https://www.biathlonresults.com/modules/sportapi/api/CupResults?CupId=BT2425SWRLCP__${type}`,
+    { cache: "no-store" }
   );
   const ranking: CupRanking = await res.json();
 

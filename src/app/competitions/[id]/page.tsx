@@ -11,7 +11,9 @@ interface RacePageProps {
 
 export default async function RacePage({ params }: RacePageProps) {
   const { id } = await params;
-  const res = await fetch(`${process.env.DOMAIN_URL}/api/competitions/${id}`); //TODO: variabiliser l'url de l'API (ça ne marchera qu'en local là)
+  const res = await fetch(`${process.env.DOMAIN_URL}/api/competitions/${id}`, {
+    cache: "no-store",
+  }); //TODO: variabiliser l'url de l'API (ça ne marchera qu'en local là)
   const race: RaceDetail = await res.json();
 
   return (
