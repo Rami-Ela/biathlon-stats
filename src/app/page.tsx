@@ -1,16 +1,16 @@
 import { EventsTable } from "@/components/events/eventsTable";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-} from "@/components/ui/navigation-menu";
+import { DEFAULT_SEASON, SeasonIds } from "@/types/competitions";
 import { Event } from "@/types/events";
 
-export default async function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ seasonId: string }>;
+}) {
   let athletes = [];
   let events: Event[] = [];
+  const seasonId = (await searchParams).seasonId ?? DEFAULT_SEASON;
+
   try {
     const res = await fetch(`${process.env.DOMAIN_URL}/api/athletes`, {
       cache: "no-store",
@@ -21,7 +21,7 @@ export default async function Home() {
   }
   try {
     const eventRes = await fetch(
-      `${process.env.DOMAIN_URL}/api/events?seasonId=2425&level=1`,
+      `${process.env.DOMAIN_URL}/api/events?seasonId=${seasonId}&level=1`,
       { cache: "no-store" }
     );
     events = await eventRes.json();

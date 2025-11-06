@@ -1,21 +1,29 @@
 import { RankingTable } from "@/components/ranking/rankingTable";
+import { LinkWithSeason } from "@/components/season/linkWithSeason";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CupRanking } from "@/types/rankings";
-import Link from "next/link";
+import { DEFAULT_SEASON, SeasonIds } from "@/types/competitions";
 
-export default async function Home() {
+interface Props {
+  searchParams: Promise<{ seasonId: string }>;
+}
+
+export default async function Home({ searchParams }: Props) {
+  const seasonId = (await searchParams).seasonId ?? DEFAULT_SEASON;
+
   return (
     <>
       <div className="px-4 flex flex-col items-center gap-10">
         <h1 className="text-2xl font-bold">Classements</h1>
         <div className="flex gap-2">
           <Button asChild>
-            <Link href={`/ranking`}>Classement Femme</Link>
+            <LinkWithSeason href={`/ranking`}>Classement Femme</LinkWithSeason>
           </Button>
           <Button asChild>
-            <Link href={`/ranking/men`}>Classement Homme</Link>
+            <LinkWithSeason href={`/ranking/men`}>
+              Classement Homme
+            </LinkWithSeason>
           </Button>
         </div>
 
@@ -36,7 +44,7 @@ export default async function Home() {
               </CardHeader>
 
               <CardContent>
-                <RankingTable type="SMTS"></RankingTable>
+                <RankingTable seasonId={seasonId} type="SMTS"></RankingTable>
               </CardContent>
             </Card>
           </TabsContent>
@@ -45,7 +53,7 @@ export default async function Home() {
               <CardHeader>
                 <CardTitle>Classement sprint Homme</CardTitle>
               </CardHeader>
-              <RankingTable type="SMSP"></RankingTable>
+              <RankingTable seasonId={seasonId} type="SMSP"></RankingTable>
             </Card>
           </TabsContent>
           <TabsContent value="pursuit">
@@ -53,7 +61,7 @@ export default async function Home() {
               <CardHeader>
                 <CardTitle>Classement poursuite Homme</CardTitle>
               </CardHeader>
-              <RankingTable type="SMPU"></RankingTable>
+              <RankingTable seasonId={seasonId} type="SMPU"></RankingTable>
             </Card>
           </TabsContent>
           <TabsContent value="individual">
@@ -61,7 +69,7 @@ export default async function Home() {
               <CardHeader>
                 <CardTitle>Classement individuel Homme</CardTitle>
               </CardHeader>
-              <RankingTable type="SMIN"></RankingTable>
+              <RankingTable seasonId={seasonId} type="SMIN"></RankingTable>
             </Card>
           </TabsContent>
           <TabsContent value="mass-start">
@@ -69,7 +77,7 @@ export default async function Home() {
               <CardHeader>
                 <CardTitle>Classement Mass-Start Homme</CardTitle>
               </CardHeader>
-              <RankingTable type="SMMS"></RankingTable>
+              <RankingTable seasonId={seasonId} type="SMMS"></RankingTable>
             </Card>
           </TabsContent>
           <TabsContent value="relay">
@@ -77,7 +85,7 @@ export default async function Home() {
               <CardHeader>
                 <CardTitle>Classement relai Homme</CardTitle>
               </CardHeader>
-              <RankingTable type="SMRL"></RankingTable>
+              <RankingTable seasonId={seasonId} type="SMRL"></RankingTable>
             </Card>
           </TabsContent>
           <TabsContent value="nation">
@@ -85,7 +93,7 @@ export default async function Home() {
               <CardHeader>
                 <CardTitle>Classement Nation Homme</CardTitle>
               </CardHeader>
-              <RankingTable type="SMNC"></RankingTable>
+              <RankingTable seasonId={seasonId} type="SMNC"></RankingTable>
             </Card>
           </TabsContent>
         </Tabs>

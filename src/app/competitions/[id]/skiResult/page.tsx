@@ -1,12 +1,7 @@
 import { RaceSkiResultTable } from "@/components/competitions/skiResultTable";
+import { LinkWithSeason } from "@/components/season/linkWithSeason";
 import { Button } from "@/components/ui/button";
-import {
-  Competition,
-  RaceDetail,
-  RaceSkiResultDetail,
-} from "@/types/competitions";
-import Image from "next/image";
-import Link from "next/link";
+import { RaceSkiResultDetail } from "@/types/competitions";
 
 interface SkiResultPageProps {
   params: Promise<{
@@ -22,20 +17,21 @@ export default async function SkiResultPage({ params }: SkiResultPageProps) {
   );
   const race: RaceSkiResultDetail = await res.json(); // revoir le type
 
-  console.log({ race });
-
   return (
     <div className="flex flex-col items-center gap-4">
       <p> {race.Competition.ShortDescription} </p>
       <p> {race.SportEvt.ShortDescription} </p>
       <div className="flex gap-3">
         <Button asChild>
-          <Link href={`/competitions/${id}`}> Classement Global </Link>
+          <LinkWithSeason href={`/competitions/${id}`}>
+            {" "}
+            Classement Global{" "}
+          </LinkWithSeason>
         </Button>
         <Button asChild>
-          <Link href={`/competitions/${id}/shootingResult`}>
+          <LinkWithSeason href={`/competitions/${id}/shootingResult`}>
             Classement Tir
-          </Link>
+          </LinkWithSeason>
         </Button>
       </div>
 

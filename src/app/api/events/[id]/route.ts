@@ -1,10 +1,12 @@
 import { getEventWithDetailsById } from "@/lib/api/events";
-import { NextApiResponse } from "next";
+import { DEFAULT_SEASON } from "@/types/competitions";
 import { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
   try {
     const id = request.nextUrl.pathname.split("/").pop();
+    const { searchParams } = new URL(request.url);
+    const seasonId = searchParams.get("seasonId") ?? DEFAULT_SEASON;
 
     if (!id) {
       return new Response(
@@ -14,6 +16,7 @@ export async function GET(request: NextRequest) {
     }
 
     const { event, competitions } = await getEventWithDetailsById({
+      seasonId: seasonId,
       eventId: id,
     });
 

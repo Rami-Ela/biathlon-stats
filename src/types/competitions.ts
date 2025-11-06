@@ -205,3 +205,11 @@ export interface RaceShootingResultDetail {
   SportEvt: SportEvent;
   Results: ShootingResult[];
 }
+
+export const SeasonIds = {
+  2324: "2324",
+  2425: "2425",
+  2526: "2526",
+} as const;
+
+export const DEFAULT_SEASON = SeasonIds[2526];

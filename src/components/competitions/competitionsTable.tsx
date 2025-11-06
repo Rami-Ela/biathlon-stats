@@ -10,8 +10,8 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
-import { useRouter } from "next/navigation";
-import { Competition } from "@/types/competitions";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Competition, DEFAULT_SEASON } from "@/types/competitions";
 import { ReactNode } from "react";
 import { Badge } from "../ui/badge";
 
@@ -32,6 +32,8 @@ interface CompetitionsTableProps {
 
 export function CompetitionsTable({ competitions }: CompetitionsTableProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const seasonId = searchParams.get("seasonId") ?? DEFAULT_SEASON;
 
   return (
     <Table>
@@ -50,7 +52,9 @@ export function CompetitionsTable({ competitions }: CompetitionsTableProps) {
           return (
             <TableRow
               key={race.RaceId}
-              onClick={() => router.push(`/competitions/${race.RaceId}`)}
+              onClick={() =>
+                router.push(`/competitions/${race.RaceId}?seasonId=${seasonId}`)
+              }
             >
               <TableCell>{`${race.ShortDescription}`}</TableCell>
               <TableCell>{`${formatFullDisplayDateWithHour(

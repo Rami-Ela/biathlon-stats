@@ -1,4 +1,5 @@
 import { RaceResultTable } from "@/components/competitions/resultTable";
+import { LinkWithSeason } from "@/components/season/linkWithSeason";
 import { Button } from "@/components/ui/button";
 import { RaceDetail } from "@/types/competitions";
 import Link from "next/link";
@@ -22,10 +23,15 @@ export default async function RacePage({ params }: RacePageProps) {
       <h2 className="font-semibold"> {race.SportEvt.ShortDescription} </h2>
       <div className="flex gap-3">
         <Button asChild>
-          <Link href={`/competitions/${id}/skiResult`}> Classement Ski </Link>
+          <LinkWithSeason href={`/competitions/${id}/skiResult`}>
+            {" "}
+            Classement Ski{" "}
+          </LinkWithSeason>
         </Button>
         <Button asChild>
-          <Link href={`/competitions/${id}/skiResult`}> Classement Tir </Link>
+          <LinkWithSeason href={`/competitions/${id}/shootingResult`}>
+            Classement Tir
+          </LinkWithSeason>
         </Button>
       </div>
 

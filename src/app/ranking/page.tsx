@@ -1,20 +1,29 @@
 import { RankingTable } from "@/components/ranking/rankingTable";
+import { LinkWithSeason } from "@/components/season/linkWithSeason";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Link from "next/link";
+import { DEFAULT_SEASON, SeasonIds } from "@/types/competitions";
 
-export default async function Home() {
+interface Props {
+  searchParams: Promise<{ seasonId: string }>;
+}
+
+export default async function Home({ searchParams }: Props) {
+  const seasonId = (await searchParams).seasonId ?? DEFAULT_SEASON;
+
   return (
     <>
       <div className="px-4 flex flex-col items-center gap-10">
         <h1 className="text-2xl font-bold">Classements</h1>
         <div className="flex gap-2">
           <Button asChild>
-            <Link href={`/ranking`}>Classement Femme</Link>
+            <LinkWithSeason href={`/ranking`}>Classement Femme</LinkWithSeason>
           </Button>
           <Button asChild>
-            <Link href={`/ranking/men`}>Classement Homme</Link>
+            <LinkWithSeason href={`/ranking/men`}>
+              Classement Homme
+            </LinkWithSeason>
           </Button>
         </div>
 
@@ -35,7 +44,7 @@ export default async function Home() {
               </CardHeader>
 
               <CardContent>
-                <RankingTable type="SWTS"></RankingTable>
+                <RankingTable seasonId={seasonId} type="SWTS"></RankingTable>
               </CardContent>
             </Card>
           </TabsContent>
@@ -44,7 +53,7 @@ export default async function Home() {
               <CardHeader>
                 <CardTitle>Classement sprint Femme</CardTitle>
               </CardHeader>
-              <RankingTable type="SWSP"></RankingTable>
+              <RankingTable seasonId={seasonId} type="SWSP"></RankingTable>
             </Card>
           </TabsContent>
           <TabsContent value="pursuit">
@@ -52,7 +61,7 @@ export default async function Home() {
               <CardHeader>
                 <CardTitle>Classement poursuite Femme</CardTitle>
               </CardHeader>
-              <RankingTable type="SWPU"></RankingTable>
+              <RankingTable seasonId={seasonId} type="SWPU"></RankingTable>
             </Card>
           </TabsContent>
           <TabsContent value="individual">
@@ -60,7 +69,7 @@ export default async function Home() {
               <CardHeader>
                 <CardTitle>Classement individuel Femme</CardTitle>
               </CardHeader>
-              <RankingTable type="SWIN"></RankingTable>
+              <RankingTable seasonId={seasonId} type="SWIN"></RankingTable>
             </Card>
           </TabsContent>
           <TabsContent value="mass-start">
@@ -68,7 +77,7 @@ export default async function Home() {
               <CardHeader>
                 <CardTitle>Classement Mass-Start Femme</CardTitle>
               </CardHeader>
-              <RankingTable type="SWMS"></RankingTable>
+              <RankingTable seasonId={seasonId} type="SWMS"></RankingTable>
             </Card>
           </TabsContent>
           <TabsContent value="relay">
@@ -76,7 +85,7 @@ export default async function Home() {
               <CardHeader>
                 <CardTitle>Classement relai Femme</CardTitle>
               </CardHeader>
-              <RankingTable type="SWRL"></RankingTable>
+              <RankingTable seasonId={seasonId} type="SWRL"></RankingTable>
             </Card>
           </TabsContent>
           <TabsContent value="nation">
@@ -84,7 +93,7 @@ export default async function Home() {
               <CardHeader>
                 <CardTitle>Classement nation Femme</CardTitle>
               </CardHeader>
-              <RankingTable type="SWNC"></RankingTable>
+              <RankingTable seasonId={seasonId} type="SWNC"></RankingTable>
             </Card>
           </TabsContent>
         </Tabs>

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import "/node_modules/flag-icons/css/flag-icons.min.css";
+import "flag-icons/css/flag-icons.min.css";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -10,6 +10,11 @@ import {
   NavigationMenuLink,
 } from "@/components/ui/navigation-menu";
 import { NavigationMenuList } from "@radix-ui/react-navigation-menu";
+import SeasonSelect from "@/components/season/seasonSelect";
+import {
+  LinkWithSeason,
+  NavigationMenuLinkWithSeason,
+} from "@/components/season/linkWithSeason";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,27 +47,28 @@ export default function RootLayout({
               <NavigationMenu>
                 <NavigationMenuList className="flex gap-4">
                   <NavigationMenuItem>
-                    <NavigationMenuLink
+                    <NavigationMenuLinkWithSeason
                       href="/events"
                       className="p-2 hover:bg-cyan-500 rounded-md transition"
                     >
                       Événements
-                    </NavigationMenuLink>
+                    </NavigationMenuLinkWithSeason>
                   </NavigationMenuItem>
                   <NavigationMenuItem>
-                    <NavigationMenuLink
+                    <NavigationMenuLinkWithSeason
                       href="/ranking"
                       className="p-2 hover:bg-cyan-500 rounded-md transition"
                     >
                       Classement
-                    </NavigationMenuLink>
+                    </NavigationMenuLinkWithSeason>
                   </NavigationMenuItem>
                 </NavigationMenuList>
               </NavigationMenu>
             </div>
           </nav>
+          <SeasonSelect></SeasonSelect>
           <div>
-            <Link href="/">
+            <LinkWithSeason href="/">
               <Image
                 className="absolute top-0 right-0"
                 src="/biathlon_logo.svg"
@@ -70,7 +76,7 @@ export default function RootLayout({
                 width={60}
                 height={60}
               />
-            </Link>
+            </LinkWithSeason>
             {children}
           </div>
         </div>
