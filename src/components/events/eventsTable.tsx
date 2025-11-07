@@ -18,12 +18,11 @@ import { DEFAULT_SEASON } from "@/types/competitions";
 
 interface EventsTableProps {
   events: Event[];
+  seasonId: string;
 }
 
-export function EventsTable({ events }: EventsTableProps) {
+export function EventsTable({ events, seasonId }: EventsTableProps) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const seasonId = searchParams.get("seasonId") ?? DEFAULT_SEASON;
 
   return (
     <Table>

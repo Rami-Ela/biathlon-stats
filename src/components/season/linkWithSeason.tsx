@@ -7,17 +7,10 @@ import { NavigationMenuLink } from "../ui/navigation-menu";
 import { NavigationMenuLinkProps } from "@radix-ui/react-navigation-menu";
 import { DEFAULT_SEASON } from "@/types/competitions";
 
-type Props = LinkProps & { children: ReactNode };
+type Props = LinkProps & { children: ReactNode; seasonId: string | null };
 
-export function LinkWithSeason({ href, children, ...props }: Props) {
-  const searchParams = useSearchParams();
-  const seasonId = searchParams.get("seasonId") ?? DEFAULT_SEASON;
-
-  let finalHref = href;
-
-  if (seasonId) {
-    finalHref = `${href}?seasonId=${seasonId}`;
-  }
+export function LinkWithSeason({ href, seasonId, children, ...props }: Props) {
+  const finalHref = `${href}?seasonId=${seasonId ?? DEFAULT_SEASON}`;
 
   return (
     <Link {...props} href={finalHref}>
@@ -28,21 +21,16 @@ export function LinkWithSeason({ href, children, ...props }: Props) {
 
 type NavigationMenuLinkWithSeasonProps = NavigationMenuLinkProps & {
   children: ReactNode;
+  seasonId: string;
 };
 
 export function NavigationMenuLinkWithSeason({
   href,
   children,
+  seasonId,
   ...props
 }: NavigationMenuLinkWithSeasonProps) {
-  const searchParams = useSearchParams();
-  const seasonId = searchParams.get("seasonId") ?? DEFAULT_SEASON;
-
-  let finalHref = href;
-
-  if (seasonId) {
-    finalHref = `${href}?seasonId=${seasonId}`;
-  }
+  const finalHref = `${href}?seasonId=${seasonId ?? DEFAULT_SEASON}`;
 
   return (
     <NavigationMenuLink asChild {...props}>

@@ -18,10 +18,12 @@ export default async function Home({ searchParams }: Props) {
         <h1 className="text-2xl font-bold">Classements</h1>
         <div className="flex gap-2">
           <Button asChild>
-            <LinkWithSeason href={`/ranking`}>Classement Femme</LinkWithSeason>
+            <LinkWithSeason href={`/ranking`} seasonId={seasonId}>
+              Classement Femme
+            </LinkWithSeason>
           </Button>
           <Button asChild>
-            <LinkWithSeason href={`/ranking/men`}>
+            <LinkWithSeason href={`/ranking/men`} seasonId={seasonId}>
               Classement Homme
             </LinkWithSeason>
           </Button>

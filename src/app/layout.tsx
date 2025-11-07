@@ -3,18 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "flag-icons/css/flag-icons.min.css";
 import Image from "next/image";
-import Link from "next/link";
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-} from "@/components/ui/navigation-menu";
-import { NavigationMenuList } from "@radix-ui/react-navigation-menu";
 import SeasonSelect from "@/components/season/seasonSelect";
-import {
-  LinkWithSeason,
-  NavigationMenuLinkWithSeason,
-} from "@/components/season/linkWithSeason";
+import NavMenu from "@/components/common/navMenu";
+import { HomeLogo } from "@/components/common/homeLogo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,6 +26,7 @@ export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
+  searchParams: Promise<{ seasonId: string }>;
 }>) {
   return (
     <html lang="en">
@@ -42,43 +34,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <div className="flex-col">
-          <nav className="w-full bg-cyan-600 text-white shadow-md z-50">
-            <div className="max-w-4xl p-4 flex items-center">
-              <NavigationMenu>
-                <NavigationMenuList className="flex gap-4">
-                  <NavigationMenuItem>
-                    <NavigationMenuLinkWithSeason
-                      href="/events"
-                      className="p-2 hover:bg-cyan-500 rounded-md transition"
-                    >
-                      Événements
-                    </NavigationMenuLinkWithSeason>
-                  </NavigationMenuItem>
-                  <NavigationMenuItem>
-                    <NavigationMenuLinkWithSeason
-                      href="/ranking"
-                      className="p-2 hover:bg-cyan-500 rounded-md transition"
-                    >
-                      Classement
-                    </NavigationMenuLinkWithSeason>
-                  </NavigationMenuItem>
-                </NavigationMenuList>
-              </NavigationMenu>
-            </div>
-          </nav>
-          <SeasonSelect></SeasonSelect>
-          <div>
-            <LinkWithSeason href="/">
-              <Image
-                className="absolute top-0 right-0"
-                src="/biathlon_logo.svg"
-                alt="Vercel logomark"
-                width={60}
-                height={60}
-              />
-            </LinkWithSeason>
-            {children}
-          </div>
+          <NavMenu></NavMenu>
+          <SeasonSelect />
+          <HomeLogo />
+          <div>{children}</div>
         </div>
       </body>
     </html>

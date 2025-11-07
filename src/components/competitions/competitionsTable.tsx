@@ -28,12 +28,14 @@ const getStatusLabel = (statusText: string) => {
 
 interface CompetitionsTableProps {
   competitions: Competition[];
+  seasonId: string;
 }
 
-export function CompetitionsTable({ competitions }: CompetitionsTableProps) {
+export function CompetitionsTable({
+  competitions,
+  seasonId,
+}: CompetitionsTableProps) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const seasonId = searchParams.get("seasonId") ?? DEFAULT_SEASON;
 
   return (
     <Table>

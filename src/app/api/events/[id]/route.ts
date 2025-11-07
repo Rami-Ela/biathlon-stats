@@ -1,12 +1,21 @@
 import { getEventWithDetailsById } from "@/lib/api/events";
-import { DEFAULT_SEASON } from "@/types/competitions";
 import { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
   try {
     const id = request.nextUrl.pathname.split("/").pop();
     const { searchParams } = new URL(request.url);
-    const seasonId = searchParams.get("seasonId") ?? DEFAULT_SEASON;
+    const seasonId = searchParams.get("seasonId");
+
+    if (!seasonId) {
+      console.error("could not retrieve seasonId in search params", {
+        seasonId,
+      });
+      return new Response(
+        JSON.stringify({ message: "Missing seasonId in search params" }),
+        { status: 400 }
+      );
+    }
 
     if (!id) {
       return new Response(

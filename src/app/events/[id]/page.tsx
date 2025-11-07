@@ -1,5 +1,5 @@
 import { CompetitionsTable } from "@/components/competitions/competitionsTable";
-import { Competition, DEFAULT_SEASON, SeasonIds } from "@/types/competitions";
+import { Competition, DEFAULT_SEASON } from "@/types/competitions";
 import { Event } from "@/types/events";
 
 interface EventPageProps {
@@ -18,6 +18,7 @@ export default async function EventPage({
   const res = await fetch(
     `${process.env.DOMAIN_URL}/api/events/${id}?seasonId=${seasonId}`
   );
+  console.log({ res, seasonId });
   const eventDetail: { event: Event; competitions: Competition[] } =
     await res.json();
 
@@ -25,7 +26,10 @@ export default async function EventPage({
     <div className="flex flex-col items-center gap-4">
       <p> {eventDetail.event.Description} </p>
       <p> {eventDetail.event.ShortDescription} </p>
-      <CompetitionsTable competitions={eventDetail.competitions} />
+      <CompetitionsTable
+        competitions={eventDetail.competitions}
+        seasonId={seasonId}
+      />
     </div>
   );
 }

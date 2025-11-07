@@ -1,16 +1,22 @@
 import { RaceSkiResultTable } from "@/components/competitions/skiResultTable";
 import { LinkWithSeason } from "@/components/season/linkWithSeason";
 import { Button } from "@/components/ui/button";
-import { RaceSkiResultDetail } from "@/types/competitions";
+import { DEFAULT_SEASON, RaceSkiResultDetail } from "@/types/competitions";
 
 interface SkiResultPageProps {
   params: Promise<{
     id: string;
   }>;
+  searchParams: Promise<{ seasonId: string }>;
 }
 
-export default async function SkiResultPage({ params }: SkiResultPageProps) {
+export default async function SkiResultPage({
+  params,
+  searchParams,
+}: SkiResultPageProps) {
   const { id } = await params;
+  const seasonId = (await searchParams).seasonId ?? DEFAULT_SEASON;
+
   const res = await fetch(
     `https://www.biathlonresults.com/modules/sportapi/api/AnalyticResults?RaceId=${id}&TypeId=CRST`,
     { cache: "no-store" }
@@ -23,13 +29,15 @@ export default async function SkiResultPage({ params }: SkiResultPageProps) {
       <p> {race.SportEvt.ShortDescription} </p>
       <div className="flex gap-3">
         <Button asChild>
-          <LinkWithSeason href={`/competitions/${id}`}>
-            {" "}
-            Classement Global{" "}
+          <LinkWithSeason href={`/competitions/${id}`} seasonId={seasonId}>
+            Classement Global
           </LinkWithSeason>
         </Button>
         <Button asChild>
-          <LinkWithSeason href={`/competitions/${id}/shootingResult`}>
+          <LinkWithSeason
+            href={`/competitions/${id}/shootingResult`}
+            seasonId={seasonId}
+          >
             Classement Tir
           </LinkWithSeason>
         </Button>

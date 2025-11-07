@@ -31,6 +31,13 @@ export default function SeasonSelect() {
         <SelectValue placeholder="Saison" />
       </SelectTrigger>
       <SelectContent>
+        <SelectItem value={SeasonIds[1617]}>2016-2017</SelectItem>
+        <SelectItem value={SeasonIds[1718]}>2017-2018</SelectItem>
+        <SelectItem value={SeasonIds[1819]}>2018-2019</SelectItem>
+        <SelectItem value={SeasonIds[1920]}>2019-2020</SelectItem>
+        <SelectItem value={SeasonIds[2021]}>2020-2021</SelectItem>
+        <SelectItem value={SeasonIds[2122]}>2021-2022</SelectItem>
+        <SelectItem value={SeasonIds[2223]}>2022-2023</SelectItem>
         <SelectItem value={SeasonIds[2324]}>2023-2024</SelectItem>
         <SelectItem value={SeasonIds[2425]}>2024-2025</SelectItem>
         <SelectItem value={SeasonIds[2526]}>2025-2026</SelectItem>

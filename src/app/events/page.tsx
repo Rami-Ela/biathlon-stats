@@ -33,7 +33,7 @@ export default async function Home({
     <div className="flex flex-col items-center gap-10">
       <h1 className="font-bold"> Liste des courses </h1>
 
-      <EventsTable events={events}></EventsTable>
+      <EventsTable events={events} seasonId={seasonId}></EventsTable>
     </div>
   );
 }

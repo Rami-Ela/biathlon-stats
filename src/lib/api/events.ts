@@ -1,4 +1,3 @@
-import { SeasonIds } from "@/types/competitions";
 import { Event } from "@/types/events";
 
 // /lib/api/athletes.js
@@ -6,7 +5,7 @@ export async function getEvents({
   seasonId,
   level,
 }: {
-  seasonId: string | null;
+  seasonId: string;
   level: string | null;
 }): Promise<Event[]> {
   const response = await fetch(
@@ -23,7 +22,7 @@ export async function getEventWithDetailsById({
   seasonId,
 }: {
   eventId: string;
-  seasonId: string | null;
+  seasonId: string;
 }) {
   const eventRes = await fetch(
     `https://www.biathlonresults.com/modules/sportapi/api/Events?SeasonId=${seasonId}&level=1`,

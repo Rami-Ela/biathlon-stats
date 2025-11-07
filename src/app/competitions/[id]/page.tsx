@@ -1,17 +1,23 @@
 import { RaceResultTable } from "@/components/competitions/resultTable";
 import { LinkWithSeason } from "@/components/season/linkWithSeason";
 import { Button } from "@/components/ui/button";
-import { RaceDetail } from "@/types/competitions";
+import { DEFAULT_SEASON, RaceDetail } from "@/types/competitions";
 import Link from "next/link";
 
 interface RacePageProps {
   params: Promise<{
     id: string;
   }>;
+  searchParams: Promise<{ seasonId: string }>;
 }
 
-export default async function RacePage({ params }: RacePageProps) {
+export default async function RacePage({
+  params,
+  searchParams,
+}: RacePageProps) {
   const { id } = await params;
+  const seasonId = (await searchParams).seasonId ?? DEFAULT_SEASON;
+
   const res = await fetch(`${process.env.DOMAIN_URL}/api/competitions/${id}`, {
     cache: "no-store",
   }); //TODO: variabiliser l'url de l'API (ça ne marchera qu'en local là)
@@ -23,13 +29,18 @@ export default async function RacePage({ params }: RacePageProps) {
       <h2 className="font-semibold"> {race.SportEvt.ShortDescription} </h2>
       <div className="flex gap-3">
         <Button asChild>
-          <LinkWithSeason href={`/competitions/${id}/skiResult`}>
-            {" "}
-            Classement Ski{" "}
+          <LinkWithSeason
+            href={`/competitions/${id}/skiResult`}
+            seasonId={seasonId}
+          >
+            Classement Ski
           </LinkWithSeason>
         </Button>
         <Button asChild>
-          <LinkWithSeason href={`/competitions/${id}/shootingResult`}>
+          <LinkWithSeason
+            href={`/competitions/${id}/shootingResult`}
+            seasonId={seasonId}
+          >
             Classement Tir
           </LinkWithSeason>
         </Button>
