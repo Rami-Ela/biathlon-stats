@@ -8,7 +8,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { DEFAULT_SEASON, SeasonIds } from "@/types/competitions";
+import { DEFAULT_SEASON, sortedSeasons } from "@/types/competitions";
+
+function formatSeasonLabel(id: string) {
+  const start = id.slice(0, 2);
+  const end = id.slice(2, 4);
+
+  const startYear = +start < 50 ? `20${start}` : `19${start}`;
+  const endYear = +end < 50 ? `20${end}` : `19${end}`;
+
+  return `${startYear}-${endYear}`;
+}
 
 export default function SeasonSelect() {
   const router = useRouter();
@@ -30,17 +40,12 @@ export default function SeasonSelect() {
       <SelectTrigger className="w-[180px]">
         <SelectValue placeholder="Saison" />
       </SelectTrigger>
-      <SelectContent>
-        <SelectItem value={SeasonIds[1617]}>2016-2017</SelectItem>
-        <SelectItem value={SeasonIds[1718]}>2017-2018</SelectItem>
-        <SelectItem value={SeasonIds[1819]}>2018-2019</SelectItem>
-        <SelectItem value={SeasonIds[1920]}>2019-2020</SelectItem>
-        <SelectItem value={SeasonIds[2021]}>2020-2021</SelectItem>
-        <SelectItem value={SeasonIds[2122]}>2021-2022</SelectItem>
-        <SelectItem value={SeasonIds[2223]}>2022-2023</SelectItem>
-        <SelectItem value={SeasonIds[2324]}>2023-2024</SelectItem>
-        <SelectItem value={SeasonIds[2425]}>2024-2025</SelectItem>
-        <SelectItem value={SeasonIds[2526]}>2025-2026</SelectItem>
+      <SelectContent className="h-[300px]">
+        {sortedSeasons.map((id) => (
+          <SelectItem key={id} value={id}>
+            {formatSeasonLabel(id)}
+          </SelectItem>
+        ))}
       </SelectContent>
     </Select>
   );

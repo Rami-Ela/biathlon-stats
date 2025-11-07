@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "flag-icons/css/flag-icons.min.css";
-import Image from "next/image";
 import SeasonSelect from "@/components/season/seasonSelect";
 import NavMenu from "@/components/common/navMenu";
 import { HomeLogo } from "@/components/common/homeLogo";
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,7 +26,6 @@ export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-  searchParams: Promise<{ seasonId: string }>;
 }>) {
   return (
     <html lang="en">
@@ -34,9 +33,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <div className="flex-col">
-          <NavMenu></NavMenu>
-          <SeasonSelect />
-          <HomeLogo />
+          <Suspense>
+            <NavMenu></NavMenu>
+            <SeasonSelect />
+            <HomeLogo />
+          </Suspense>
           <div>{children}</div>
         </div>
       </body>

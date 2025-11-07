@@ -10,8 +10,8 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Competition, DEFAULT_SEASON } from "@/types/competitions";
+import { useRouter } from "next/navigation";
+import { Competition } from "@/types/competitions";
 import { ReactNode } from "react";
 import { Badge } from "../ui/badge";
 

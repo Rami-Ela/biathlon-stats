@@ -1,6 +1,5 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
 import Link, { LinkProps } from "next/link";
 import { ReactNode } from "react";
 import { NavigationMenuLink } from "../ui/navigation-menu";

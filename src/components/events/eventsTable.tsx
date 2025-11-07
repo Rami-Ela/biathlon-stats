@@ -11,10 +11,9 @@ import {
   TableRow,
 } from "../ui/table";
 import { Event } from "@/types/events";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Badge } from "../ui/badge";
 import { getFlagCountry } from "@/utils/flags";
-import { DEFAULT_SEASON } from "@/types/competitions";
 
 interface EventsTableProps {
   events: Event[];
