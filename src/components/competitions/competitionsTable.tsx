@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { Competition } from "@/types/competitions";
 import { ReactNode } from "react";
 import { Badge } from "../ui/badge";
+import AddToCalendar from "../calendar/addToCalendar";
 
 const getStatusLabel = (statusText: string) => {
   const statusTextMap: Record<string, ReactNode> = {
@@ -62,8 +63,17 @@ export function CompetitionsTable({
               <TableCell>{`${formatFullDisplayDateWithHour(
                 race.StartTime
               )}`}</TableCell>
-              <TableCell className="flex flex-row justify-center">
-                {getStatusLabel(race.StatusText)}
+              <TableCell>{getStatusLabel(race.StatusText)}</TableCell>
+              <TableCell>
+                <AddToCalendar
+                  title={race.ShortDescription}
+                  startDate={race.StartTime}
+                  durationHours={1}
+                  durationMinutes={0}
+                  description={race.Description}
+                  location={race.Location}
+                  organizerName="IBU"
+                ></AddToCalendar>
               </TableCell>
             </TableRow>
           );
