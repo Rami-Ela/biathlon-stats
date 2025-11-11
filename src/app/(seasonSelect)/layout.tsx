@@ -1,4 +1,5 @@
 import SeasonSelect from "@/components/season/seasonSelect";
+import { Suspense } from "react";
 
 export default function RootLayout({
   children,
@@ -7,7 +8,10 @@ export default function RootLayout({
 }>) {
   return (
     <div className="p-2">
-      <SeasonSelect />
+      <Suspense>
+        <SeasonSelect />
+      </Suspense>
+
       <div>{children}</div>
     </div>
   );
