@@ -28,14 +28,20 @@ interface RaceResultTableProps {
     | "SMRL"
     | "SMNC";
   seasonId: string;
+  limit?: number;
 }
 
-export async function RankingTable({ type, seasonId }: RaceResultTableProps) {
+export async function RankingTable({
+  type,
+  seasonId,
+  limit,
+}: RaceResultTableProps) {
   const res = await fetch(
     `https://www.biathlonresults.com/modules/sportapi/api/CupResults?CupId=BT${seasonId}SWRLCP__${type}`,
     { cache: "no-store" }
   );
   const ranking: CupRanking = await res.json();
+  const rankingRows = limit ? ranking.Rows.slice(0, limit) : ranking.Rows;
 
   return (
     <Table>
@@ -48,7 +54,7 @@ export async function RankingTable({ type, seasonId }: RaceResultTableProps) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {ranking.Rows.map((rank, index) => {
+        {rankingRows.map((rank, index) => {
           const diff = index > 0 ? +rank.Score - +ranking.Rows[0].Score : "";
 
           return (

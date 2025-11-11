@@ -35,7 +35,6 @@ export default function RootLayout({
         <div className="flex-col">
           <Suspense>
             <NavMenu></NavMenu>
-            <SeasonSelect />
             <HomeLogo />
           </Suspense>
           <div>{children}</div>
