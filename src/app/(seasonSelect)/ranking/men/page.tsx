@@ -17,7 +17,7 @@ export default async function Home({ searchParams }: Props) {
       <div className="px-4 flex flex-col items-center gap-10">
         <h1 className="text-2xl font-bold">Classements</h1>
         <div className="flex gap-2">
-          <Button asChild>
+          <Button asChild variant="outline">
             <LinkWithSeason href={`/ranking`} seasonId={seasonId}>
               Classement Femme
             </LinkWithSeason>

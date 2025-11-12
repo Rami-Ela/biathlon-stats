@@ -13,6 +13,14 @@ type AddToCalendarProps = {
   organizerName?: string;
   organizerEmail?: string;
   eventUrl?: string;
+  variant?:
+    | "default"
+    | "destructive"
+    | "outline"
+    | "secondary"
+    | "ghost"
+    | "link"
+    | null;
 };
 
 export default function AddToCalendar({
@@ -25,6 +33,7 @@ export default function AddToCalendar({
   organizerName,
   organizerEmail,
   eventUrl,
+  variant,
 }: AddToCalendarProps) {
   const handleClick = async (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -47,7 +56,7 @@ export default function AddToCalendar({
   };
 
   return (
-    <Button onClick={handleClick}>
+    <Button onClick={handleClick} variant={variant}>
       <CalendarPlus />
     </Button>
   );

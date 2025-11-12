@@ -18,7 +18,7 @@ export default async function EventPage({
   const res = await fetch(
     `${process.env.DOMAIN_URL}/api/events/${id}?seasonId=${seasonId}`
   );
-  console.log({ res, seasonId });
+
   const eventDetail: { event: Event; competitions: Competition[] } =
     await res.json();
 

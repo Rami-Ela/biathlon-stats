@@ -22,7 +22,7 @@ export default async function Home({ searchParams }: Props) {
               Classement Femme
             </LinkWithSeason>
           </Button>
-          <Button asChild>
+          <Button asChild variant="outline">
             <LinkWithSeason href={`/ranking/men`} seasonId={seasonId}>
               Classement Homme
             </LinkWithSeason>
