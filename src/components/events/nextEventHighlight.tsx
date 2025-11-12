@@ -2,6 +2,10 @@ import { formatFullDisplayDate } from "@/lib/date";
 
 import { Event } from "@/types/events";
 import { getFlagCountry } from "@/utils/flags";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Badge } from "../ui/badge";
+import { LinkWithSeason } from "../season/linkWithSeason";
+import { ArrowRight } from "lucide-react";
 
 interface NextEventHighlightProps {
   seasonId: string;
@@ -55,29 +59,37 @@ export async function NextEventHighlight({
   }
 
   const { incomingEvent, currentEvent } = getNextEvent(events);
+  const highlightedEvent = currentEvent ?? incomingEvent;
 
-  const highlitedEvent = currentEvent ?? incomingEvent;
+  if (!highlightedEvent) return null;
 
-  if (!highlitedEvent) {
-    return null;
-  }
+  const flag = getFlagCountry(highlightedEvent.Nat);
 
   return (
-    <div className="flex flex-col gap-3 items-center p-5 border rounded-md">
-      <h2 className="text-2xl font-semibold">
-        {currentEvent !== null
-          ? "Compétition en cours"
-          : "Prochaine compétiton"}
-      </h2>
-      <div className="text-2xl font-bold">
-        {getFlagCountry(highlitedEvent.Nat)}
-        {` ${highlitedEvent.ShortDescription}`}
-      </div>
-      <div className="text-center">
-        {`${formatFullDisplayDate(
-          highlitedEvent.FirstCompetitionDate
-        )} - ${formatFullDisplayDate(highlitedEvent.EndDate)}`}
-      </div>
-    </div>
+    <Card className="w-full max-w-2xl mx-auto p-4 ">
+      <CardHeader className="flex items-center gap-2 justify-center">
+        <Badge variant={currentEvent ? "default" : "secondary"}>
+          {currentEvent ? "Compétition en cours" : "Prochaine compétition"}
+        </Badge>
+        <CardTitle className="text-center text-2xl font-bold flex items-center gap-2">
+          {flag} {highlightedEvent.ShortDescription}
+        </CardTitle>
+      </CardHeader>
+
+      <CardContent className="flex flex-col items-center gap-4 text-center">
+        <p className="text-muted-foreground text-sm">
+          {formatFullDisplayDate(highlightedEvent.FirstCompetitionDate)} —{" "}
+          {formatFullDisplayDate(highlightedEvent.EndDate)}
+        </p>
+
+        {/* <LinkWithSeason
+          href={`/events/${highlightedEvent.EventId}?seasonId=${seasonId}`}
+          seasonId={seasonId}
+        >
+          {"Voir l'événement"}
+          <ArrowRight size={16} />
+        </LinkWithSeason> */}
+      </CardContent>
+    </Card>
   );
 }

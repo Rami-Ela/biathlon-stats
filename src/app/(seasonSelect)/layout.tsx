@@ -7,9 +7,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="p-2">
+    <div>
       <Suspense>
-        <SeasonSelect />
+        <div className="p-3">
+          <SeasonSelect />
+        </div>
       </Suspense>
 
       <div>{children}</div>

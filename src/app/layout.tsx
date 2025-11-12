@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "flag-icons/css/flag-icons.min.css";
-import SeasonSelect from "@/components/season/seasonSelect";
 import NavMenu from "@/components/common/navMenu";
-import { HomeLogo } from "@/components/common/homeLogo";
 import { Suspense } from "react";
 
 const geistSans = Geist({
@@ -35,7 +33,6 @@ export default function RootLayout({
         <div className="flex-col">
           <Suspense>
             <NavMenu></NavMenu>
-            <HomeLogo />
           </Suspense>
           <div>{children}</div>
         </div>
