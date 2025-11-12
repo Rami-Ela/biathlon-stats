@@ -21,7 +21,7 @@ export default function NavMenu() {
   ];
 
   return (
-    <nav className="w-full sticky top-0 border-b bg-white/80 backdrop-blur">
+    <nav className="w-full sticky top-0 border-b bg-white/80 backdrop-blur z-50">
       <div className="max-w-5xl px-4 sm:px-6 lg:px-8 h-16 flex">
         <NavigationMenu>
           <NavigationMenuList className="flex gap-2">
