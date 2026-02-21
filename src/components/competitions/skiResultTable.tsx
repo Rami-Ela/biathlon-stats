@@ -12,6 +12,7 @@ import {
 import { useRouter } from "next/navigation";
 import { RaceResult, SkiResult } from "@/types/competitions";
 import { getFlagCountry } from "@/utils/flags";
+import { getCompetitionPoints } from "@/utils/competitionPoints";
 
 interface RaceSkiResultTableProps {
   raceResults: SkiResult[];
@@ -32,6 +33,7 @@ export function RaceSkiResultTable({ raceResults }: RaceSkiResultTableProps) {
       </TableHeader>
       <TableBody>
         {raceResults.map((raceResult, index) => {
+          const points = raceResult.ResultOrder ? getCompetitionPoints(raceResult.ResultOrder) : 0;
           return (
             <TableRow key={raceResult.IBUId}>
               <TableCell>{`${raceResult.ResultOrder}`}</TableCell>
@@ -41,6 +43,9 @@ export function RaceSkiResultTable({ raceResults }: RaceSkiResultTableProps) {
               </TableCell>
               <TableCell>
                 {index === 0 ? raceResult.TotalTime : raceResult.Behind}
+                {points > 0 && (
+                  <span className="text-muted-foreground"> ({points} pts)</span>
+                )}
               </TableCell>
             </TableRow>
           );
