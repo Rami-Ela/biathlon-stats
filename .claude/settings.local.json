@@ -2,7 +2,13 @@
   "permissions": {
     "allow": [
       "Bash(tail:*)",
-      "Bash(git:*)"
+      "Bash(git:*)",
+      "WebFetch(domain:biathlonresults.com)",
+      "WebFetch(domain:www.biathlonresults.com)",
+      "Bash(ls:*)",
+      "Bash(curl:*)",
+      "Bash(head:*)",
+      "Bash(yarn build:*)"
     ]
   }
 }

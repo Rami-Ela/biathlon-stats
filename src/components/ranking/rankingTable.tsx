@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   Table,
   TableBody,
@@ -62,7 +63,9 @@ export async function RankingTable({
               <TableCell>{`${rank.Rank}`}</TableCell>
               <TableCell>
                 {getFlagCountry(rank.Nat)}
-                <span> {rank.Name} </span>
+                <Link href={`/athletes/${rank.IBUId}?name=${encodeURIComponent(rank.Name)}&nat=${rank.Nat}`} className="hover:underline">
+                  {rank.Name}
+                </Link>
               </TableCell>
               <TableCell>
                 {rank.Score}{" "}

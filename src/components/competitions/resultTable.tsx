@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { formatFullDisplayDate } from "@/lib/date";
 import {
   Table,
@@ -42,7 +43,9 @@ export function RaceResultTable({ raceResults }: RaceResultTableProps) {
               <TableCell>{`${raceResult.ResultOrder}`}</TableCell>
               <TableCell>
                 {getFlagCountry(raceResult.Nat)}
-                <span> {raceResult.Name} </span>
+                <Link href={`/athletes/${raceResult.IBUId}?name=${encodeURIComponent(raceResult.Name)}&nat=${raceResult.Nat}`} className="hover:underline">
+                  {raceResult.Name}
+                </Link>
               </TableCell>
               <TableCell>
                 {index === 0 ? raceResult.TotalTime : raceResult.Behind}
