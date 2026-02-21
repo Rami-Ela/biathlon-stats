@@ -2,6 +2,8 @@ import { NextEventHighlight } from "@/components/events/nextEventHighlight";
 import { RankingTable } from "@/components/ranking/rankingTable";
 import { DEFAULT_SEASON } from "@/types/competitions";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const seasonId = DEFAULT_SEASON;
 

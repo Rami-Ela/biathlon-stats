@@ -15,6 +15,7 @@ import {
 import { Badge } from "../ui/badge";
 import { Competition } from "@/types/competitions";
 import AddToCalendar from "../calendar/addToCalendar";
+import Link from "next/link";
 
 interface NextEventHighlightProps {
   seasonId: string;
@@ -101,14 +102,16 @@ export async function NextEventHighlight({
 
   return (
     <Card className="w-full max-w-2xl mx-auto p-4">
-      <CardHeader className="flex items-center gap-2 justify-center">
-        <Badge variant={currentEvent ? "default" : "secondary"}>
-          {currentEvent ? "Compétition en cours" : "Prochaine compétition"}
-        </Badge>
-        <CardTitle className="text-center text-2xl font-bold flex items-center gap-2">
-          {flag} {highlightedEvent.ShortDescription}
-        </CardTitle>
-      </CardHeader>
+      <Link href={`/events/${highlightedEvent.EventId}?seasonId=${seasonId}`}>
+        <CardHeader className="flex items-center gap-2 justify-center hover:opacity-80 transition-opacity">
+          <Badge variant={currentEvent ? "default" : "secondary"}>
+            {currentEvent ? "Compétition en cours" : "Prochaine compétition"}
+          </Badge>
+          <CardTitle className="text-center text-2xl font-bold flex items-center gap-2">
+            {flag} {highlightedEvent.ShortDescription}
+          </CardTitle>
+        </CardHeader>
+      </Link>
 
       <CardContent className="flex flex-col items-center gap-4 text-center">
         <p className="text-muted-foreground text-sm">
