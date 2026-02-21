@@ -1,7 +1,8 @@
 import { AthleteBio } from "@/components/athletes/athleteBio";
+import { AthleteStats } from "@/components/athletes/athleteStats";
 import { AthleteDisciplineRankings } from "@/components/athletes/athleteDisciplineRankings";
+import { getAthleteBioByIBUId } from "@/lib/api/athletes";
 import { getCupRankingsForAthlete } from "@/lib/api/rankings";
-import { Athlete } from "@/types/athletes";
 import { DEFAULT_SEASON } from "@/types/competitions";
 
 export default async function AthletePage({
@@ -14,25 +15,23 @@ export default async function AthletePage({
   const { ibuId } = await params;
   const { name = "", nat = "" } = await searchParams;
 
-  const rankings = await getCupRankingsForAthlete({
-    ibuId,
-    seasonId: DEFAULT_SEASON,
-  });
-
-  const athlete: Athlete = {
-    IBUId: ibuId,
-    Name: name,
-    FamilyName: "",
-    GivenName: "",
-    NAT: nat,
-    Birthdate: "",
-    Age: 0,
-    GenderId: 0,
-  };
+  const [rankings, bio] = await Promise.all([
+    getCupRankingsForAthlete({ ibuId, seasonId: DEFAULT_SEASON }),
+    getAthleteBioByIBUId(ibuId).catch((error) => {
+      console.error("Error fetching athlete bio", { ibuId, error });
+      return null;
+    }),
+  ]);
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
-      <AthleteBio athlete={athlete} />
+      <AthleteBio
+        bio={bio}
+        fallbackName={name}
+        fallbackNat={nat}
+        ibuId={ibuId}
+      />
+      {bio && <AthleteStats bio={bio} />}
       <h2 className="text-lg font-semibold mb-4">Classements de la saison</h2>
       <AthleteDisciplineRankings rankings={rankings} />
     </div>

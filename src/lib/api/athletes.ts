@@ -1,5 +1,5 @@
 // /lib/api/athletes.js
-import { Athlete } from "@/types/athletes";
+import { Athlete, CISBio } from "@/types/athletes";
 
 export async function getAthletes() {
   const response = await fetch(
@@ -24,4 +24,15 @@ export async function getAthleteByIBUId({
   );
   const data = await response.json();
   return (data.Athletes as Athlete[]).find((a) => a.IBUId === ibuId) ?? null;
+}
+
+export async function getAthleteBioByIBUId(
+  ibuId: string,
+): Promise<CISBio | null> {
+  const response = await fetch(
+    `https://www.biathlonresults.com/modules/sportapi/api/CISBios?IBUId=${ibuId}`,
+    { next: { revalidate: 3600 } },
+  );
+  if (!response.ok) return null;
+  return response.json();
 }
