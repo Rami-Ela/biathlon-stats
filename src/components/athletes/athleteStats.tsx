@@ -14,7 +14,13 @@ interface AthleteStatsProps {
 }
 
 export function AthleteStats({ bio }: AthleteStatsProps) {
-  const { StatSeasons, StatShooting, StatShootingProne, StatShootingStanding, StatSkiing } = bio;
+  const {
+    StatSeasons,
+    StatShooting,
+    StatShootingProne,
+    StatShootingStanding,
+    StatSkiing,
+  } = bio;
 
   if (!StatSeasons || StatSeasons.length === 0) return null;
 
@@ -23,7 +29,7 @@ export function AthleteStats({ bio }: AthleteStatsProps) {
       <CardHeader className="pb-3">
         <CardTitle className="text-base">Stats par saison</CardTitle>
       </CardHeader>
-      <CardContent className="p-0">
+      <CardContent className="px-10">
         <Table>
           <TableHeader>
             <TableRow>

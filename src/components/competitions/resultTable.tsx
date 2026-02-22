@@ -1,7 +1,4 @@
-"use client";
-
 import Link from "next/link";
-import { formatFullDisplayDate } from "@/lib/date";
 import {
   Table,
   TableBody,
@@ -11,8 +8,6 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
-import { Event } from "@/types/events";
-import { useRouter } from "next/navigation";
 import { RaceResult } from "@/types/competitions";
 import { getFlagCountry } from "@/utils/flags";
 import { getCompetitionPoints } from "@/utils/competitionPoints";
@@ -43,7 +38,10 @@ export function RaceResultTable({ raceResults }: RaceResultTableProps) {
               <TableCell>{`${raceResult.ResultOrder}`}</TableCell>
               <TableCell>
                 {getFlagCountry(raceResult.Nat)}
-                <Link href={`/athletes/${raceResult.IBUId}?name=${encodeURIComponent(raceResult.Name)}&nat=${raceResult.Nat}`} className="hover:underline">
+                <Link
+                  href={`/athletes/${raceResult.IBUId}?name=${encodeURIComponent(raceResult.Name)}&nat=${raceResult.Nat}`}
+                  className="hover:underline"
+                >
                   {raceResult.Name}
                 </Link>
               </TableCell>

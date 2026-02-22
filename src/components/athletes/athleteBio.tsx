@@ -75,20 +75,8 @@ export function AthleteBio({
     <Card className="mb-6">
       <CardHeader className="pb-3">
         <div className="flex gap-4">
-          {bio.PhotoURI && (
-            <div className="shrink-0">
-              <Image
-                src={bio.PhotoURI}
-                alt={bio.FullName}
-                width={80}
-                height={100}
-                className="rounded object-cover"
-                unoptimized
-              />
-            </div>
-          )}
           <div className="flex-1 min-w-0">
-            <CardTitle className="text-2xl flex flex-wrap items-center gap-2 mb-1">
+            <CardTitle className="text-3xl flex flex-wrap items-center gap-2 mb-1">
               {getFlagCountry(bio.NAT)}
               <span>{bio.FullName || ibuId}</span>
             </CardTitle>
@@ -105,6 +93,18 @@ export function AthleteBio({
               ))}
             </div>
           </div>
+          {bio.PhotoURI && (
+            <div className="shrink-0">
+              <Image
+                src={bio.PhotoURI}
+                alt={bio.FullName}
+                width={120}
+                height={160}
+                className="rounded object-cover"
+                unoptimized
+              />
+            </div>
+          )}
         </div>
       </CardHeader>
 

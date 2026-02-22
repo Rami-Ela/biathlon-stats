@@ -24,7 +24,7 @@ export default async function AthletePage({
   ]);
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
+    <div className="p-6 max-w-6xl mx-auto">
       <AthleteBio
         bio={bio}
         fallbackName={name}

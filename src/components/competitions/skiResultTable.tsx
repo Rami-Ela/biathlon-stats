@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import {
   Table,
@@ -35,7 +33,10 @@ export function RaceSkiResultTable({ raceResults }: RaceSkiResultTableProps) {
               <TableCell>{`${raceResult.ResultOrder}`}</TableCell>
               <TableCell>
                 {getFlagCountry(raceResult.Nat)}
-                <Link href={`/athletes/${raceResult.IBUId}?name=${encodeURIComponent(raceResult.Name)}&nat=${raceResult.Nat}`} className="hover:underline">
+                <Link
+                  href={`/athletes/${raceResult.IBUId}?name=${encodeURIComponent(raceResult.Name)}&nat=${raceResult.Nat}`}
+                  className="hover:underline"
+                >
                   {raceResult.Name}
                 </Link>
               </TableCell>

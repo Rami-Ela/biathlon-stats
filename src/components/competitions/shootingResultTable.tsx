@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import {
   Table,
@@ -11,9 +9,8 @@ import {
   TableRow,
 } from "../ui/table";
 import { useRouter } from "next/navigation";
-import { RaceResult, ShootingResult } from "@/types/competitions";
+import { ShootingResult } from "@/types/competitions";
 import { getFlagCountry } from "@/utils/flags";
-import { getCompetitionPoints } from "@/utils/competitionPoints";
 
 interface RaceShootingResultTableProps {
   raceResults: ShootingResult[];
@@ -22,8 +19,6 @@ interface RaceShootingResultTableProps {
 export function RaceShootingResultTable({
   raceResults,
 }: RaceShootingResultTableProps) {
-  const router = useRouter();
-
   return (
     <Table>
       <TableCaption>Résultats au tir</TableCaption>
@@ -42,7 +37,10 @@ export function RaceShootingResultTable({
               <TableCell>{`${raceResult.ResultOrder}`}</TableCell>
               <TableCell>
                 {getFlagCountry(raceResult.Nat)}
-                <Link href={`/athletes/${raceResult.IBUId}?name=${encodeURIComponent(raceResult.Name)}&nat=${raceResult.Nat}`} className="hover:underline">
+                <Link
+                  href={`/athletes/${raceResult.IBUId}?name=${encodeURIComponent(raceResult.Name)}&nat=${raceResult.Nat}`}
+                  className="hover:underline"
+                >
                   {raceResult.Name}
                 </Link>
               </TableCell>
