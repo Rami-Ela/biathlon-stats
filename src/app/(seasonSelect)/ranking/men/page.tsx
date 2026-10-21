@@ -3,7 +3,7 @@ import { LinkWithSeason } from "@/components/season/linkWithSeason";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { DEFAULT_SEASON, SeasonIds } from "@/types/competitions";
+import { DEFAULT_SEASON } from "@/types/competitions";
 
 interface Props {
   searchParams: Promise<{ seasonId: string }>;

@@ -1,3 +1,5 @@
+"use client";
+
 import { NextEventHighlight } from "@/components/events/nextEventHighlight";
 import { RankingTable } from "@/components/ranking/rankingTable";
 import { DEFAULT_SEASON } from "@/types/competitions";

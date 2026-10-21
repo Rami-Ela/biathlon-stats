@@ -10,7 +10,6 @@ import {
 } from "../ui/table";
 import { getFlagCountry } from "@/utils/flags";
 import { CupRanking } from "@/types/rankings";
-import { SeasonIds } from "@/types/competitions";
 
 interface RaceResultTableProps {
   type:

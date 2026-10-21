@@ -10,7 +10,7 @@ export async function getEvents({
 }): Promise<Event[]> {
   const response = await fetch(
     `https://www.biathlonresults.com/modules/sportapi/api/Events?SeasonId=${seasonId}&level=${level}`,
-    { cache: "no-store" }
+    { cache: "no-store" },
   );
 
   const data = await response.json();
@@ -26,14 +26,14 @@ export async function getEventWithDetailsById({
 }) {
   const eventRes = await fetch(
     `https://www.biathlonresults.com/modules/sportapi/api/Events?SeasonId=${seasonId}&level=1`,
-    { cache: "no-store" }
+    { cache: "no-store" },
   );
 
   const eventData: Event[] = await eventRes.json();
 
   const competitionsRes = await fetch(
     `https://www.biathlonresults.com/modules/sportapi/api/Competitions?EventId=${eventId}`,
-    { cache: "no-store" }
+    { cache: "no-store" },
   );
   const competitionData = await competitionsRes.json();
 

@@ -1,5 +1,5 @@
 import { EventsTable } from "@/components/events/eventsTable";
-import { DEFAULT_SEASON, SeasonIds } from "@/types/competitions";
+import { DEFAULT_SEASON } from "@/types/competitions";
 import { Event } from "@/types/events";
 
 export default async function Home({
