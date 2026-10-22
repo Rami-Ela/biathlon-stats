@@ -20,7 +20,7 @@ function formatSeasonLabel(id: string) {
   return `${startYear}-${endYear}`;
 }
 
-export default function SeasonSelect() {
+export default function SeasonSelect({ className }: { className?: string }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -37,7 +37,7 @@ export default function SeasonSelect() {
       }}
       defaultValue={seasonId}
     >
-      <SelectTrigger className="w-[180px]">
+      <SelectTrigger className={className ?? "w-[180px]"}>
         <SelectValue placeholder="Saison" />
       </SelectTrigger>
       <SelectContent className="h-[300px]">

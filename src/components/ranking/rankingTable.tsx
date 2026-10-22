@@ -10,23 +10,10 @@ import {
 } from "../ui/table";
 import { getFlagCountry } from "@/utils/flags";
 import { CupRanking } from "@/types/rankings";
+import { RankingType } from "@/utils/rankingTypes";
 
 interface RaceResultTableProps {
-  type:
-    | "SWTS"
-    | "SWSP"
-    | "SWPU"
-    | "SWIN"
-    | "SWMS"
-    | "SWRL"
-    | "SWNC"
-    | "SMTS"
-    | "SMSP"
-    | "SMPU"
-    | "SMIN"
-    | "SMMS"
-    | "SMRL"
-    | "SMNC";
+  type: RankingType;
   seasonId: string;
   limit?: number;
 }
@@ -38,10 +25,18 @@ export async function RankingTable({
 }: RaceResultTableProps) {
   const res = await fetch(
     `https://www.biathlonresults.com/modules/sportapi/api/CupResults?CupId=BT${seasonId}SWRLCP__${type}`,
-    { cache: "no-store" }
+    { cache: "no-store" },
   );
   const ranking: CupRanking = await res.json();
   const rankingRows = limit ? ranking.Rows.slice(0, limit) : ranking.Rows;
+
+  if (rankingRows.length === 0) {
+    return (
+      <p className="py-8 text-center text-sm text-muted-foreground">
+        Aucune course disputée pour le moment.
+      </p>
+    );
+  }
 
   return (
     <Table>
@@ -50,7 +45,7 @@ export async function RankingTable({
         <TableRow>
           <TableHead> </TableHead>
           <TableHead> Athlète </TableHead>
-          <TableHead> Nombre de points </TableHead>
+          <TableHead className="text-right"> Points </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -62,11 +57,14 @@ export async function RankingTable({
               <TableCell>{`${rank.Rank}`}</TableCell>
               <TableCell>
                 {getFlagCountry(rank.Nat)}
-                <Link href={`/athletes/${rank.IBUId}?name=${encodeURIComponent(rank.Name)}&nat=${rank.Nat}`} className="hover:underline">
+                <Link
+                  href={`/athletes/${rank.IBUId}?name=${encodeURIComponent(rank.Name)}&nat=${rank.Nat}`}
+                  className="hover:underline"
+                >
                   {rank.Name}
                 </Link>
               </TableCell>
-              <TableCell>
+              <TableCell className="text-right whitespace-nowrap">
                 {rank.Score}{" "}
                 <span className="text-red-500 text-xs">
                   {diff ? `(${diff})` : ""}

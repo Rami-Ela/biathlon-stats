@@ -8,7 +8,6 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
-import { useRouter } from "next/navigation";
 import { ShootingResult } from "@/types/competitions";
 import { getFlagCountry } from "@/utils/flags";
 
