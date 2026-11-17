@@ -1,4 +1,6 @@
 import { RaceShootingResultTable } from "@/components/competitions/shootingResultTable";
+import { DataUnavailable } from "@/components/common/dataUnavailable";
+import { fetchJson } from "@/lib/api/fetchJson";
 import { RaceShootingResultDetail } from "@/types/competitions";
 
 interface ShootingResultPageProps {
@@ -10,11 +12,11 @@ export default async function ShootingResultPage({
 }: ShootingResultPageProps) {
   const { id } = await params;
 
-  const res = await fetch(
+  const race = await fetchJson<RaceShootingResultDetail>(
     `https://www.biathlonresults.com/modules/sportapi/api/AnalyticResults?RaceId=${id}&TypeId=STTM`,
     { cache: "no-store" }
   );
-  const race: RaceShootingResultDetail = await res.json();
+  if (!race?.Results || !race.Competition) return <DataUnavailable />;
 
   return (
     <RaceShootingResultTable

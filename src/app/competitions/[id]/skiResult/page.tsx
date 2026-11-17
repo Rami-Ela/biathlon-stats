@@ -1,4 +1,6 @@
 import { RaceSkiResultTable } from "@/components/competitions/skiResultTable";
+import { DataUnavailable } from "@/components/common/dataUnavailable";
+import { fetchJson } from "@/lib/api/fetchJson";
 import { RaceSkiResultDetail } from "@/types/competitions";
 
 interface SkiResultPageProps {
@@ -8,11 +10,11 @@ interface SkiResultPageProps {
 export default async function SkiResultPage({ params }: SkiResultPageProps) {
   const { id } = await params;
 
-  const res = await fetch(
+  const race = await fetchJson<RaceSkiResultDetail>(
     `https://www.biathlonresults.com/modules/sportapi/api/AnalyticResults?RaceId=${id}&TypeId=CRST`,
     { cache: "no-store" }
   );
-  const race: RaceSkiResultDetail = await res.json();
+  if (!race?.Results || !race.Competition) return <DataUnavailable />;
 
   return (
     <RaceSkiResultTable

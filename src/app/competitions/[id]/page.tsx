@@ -1,4 +1,6 @@
 import { RaceResultTable } from "@/components/competitions/resultTable";
+import { DataUnavailable } from "@/components/common/dataUnavailable";
+import { fetchJson } from "@/lib/api/fetchJson";
 import { RaceDetail } from "@/types/competitions";
 
 interface RacePageProps {
@@ -8,10 +10,11 @@ interface RacePageProps {
 export default async function RacePage({ params }: RacePageProps) {
   const { id } = await params;
 
-  const res = await fetch(`${process.env.DOMAIN_URL}/api/competitions/${id}`, {
-    cache: "no-store",
-  });
-  const race: RaceDetail = await res.json();
+  const race = await fetchJson<RaceDetail>(
+    `${process.env.DOMAIN_URL}/api/competitions/${id}`,
+    { cache: "no-store" },
+  );
+  if (!race?.Results || !race.Competition) return <DataUnavailable />;
 
   return (
     <RaceResultTable

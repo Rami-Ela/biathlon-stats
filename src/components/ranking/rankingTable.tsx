@@ -11,6 +11,8 @@ import {
 import { getFlagCountry } from "@/utils/flags";
 import { CupRanking } from "@/types/rankings";
 import { RankingType } from "@/utils/rankingTypes";
+import { fetchJson } from "@/lib/api/fetchJson";
+import { DataUnavailable } from "../common/dataUnavailable";
 
 interface RaceResultTableProps {
   type: RankingType;
@@ -23,11 +25,12 @@ export async function RankingTable({
   seasonId,
   limit,
 }: RaceResultTableProps) {
-  const res = await fetch(
+  const ranking = await fetchJson<CupRanking>(
     `https://www.biathlonresults.com/modules/sportapi/api/CupResults?CupId=BT${seasonId}SWRLCP__${type}`,
     { cache: "no-store" },
   );
-  const ranking: CupRanking = await res.json();
+  if (!ranking?.Rows) return <DataUnavailable />;
+
   const rankingRows = limit ? ranking.Rows.slice(0, limit) : ranking.Rows;
 
   if (rankingRows.length === 0) {

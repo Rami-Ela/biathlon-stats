@@ -16,6 +16,7 @@ import { Badge } from "../ui/badge";
 import { Competition } from "@/types/competitions";
 import AddToCalendar from "../calendar/addToCalendar";
 import Link from "next/link";
+import { fetchJson } from "@/lib/api/fetchJson";
 
 interface NextEventHighlightProps {
   seasonId: string;
@@ -72,17 +73,11 @@ export function getNextRace(competitions: Competition[]): Competition | null {
 export async function NextEventHighlight({
   seasonId,
 }: NextEventHighlightProps) {
-  let events: Event[] = [];
-
-  try {
-    const eventRes = await fetch(
-      `${process.env.DOMAIN_URL}/api/events?seasonId=${seasonId}&level=1`,
-      { cache: "no-store" }
-    );
-    events = await eventRes.json();
-  } catch (error) {
-    console.error("Erreur lors du fetch :", error);
-  }
+  const eventsJson = await fetchJson<Event[]>(
+    `${process.env.DOMAIN_URL}/api/events?seasonId=${seasonId}&level=1`,
+    { cache: "no-store" }
+  );
+  const events = Array.isArray(eventsJson) ? eventsJson : [];
 
   const { incomingEvent, currentEvent } = getNextEvent(events);
   const highlightedEvent = currentEvent ?? incomingEvent;
@@ -91,14 +86,14 @@ export async function NextEventHighlight({
 
   const flag = getFlagCountry(highlightedEvent.Nat);
 
-  const res = await fetch(
+  const eventDetail = await fetchJson<{
+    event: Event;
+    competitions: Competition[];
+  }>(
     `${process.env.DOMAIN_URL}/api/events/${highlightedEvent.EventId}?seasonId=${seasonId}`
   );
 
-  const eventDetail: { event: Event; competitions: Competition[] } =
-    await res.json();
-
-  const nextRace = getNextRace(eventDetail.competitions);
+  const nextRace = getNextRace(eventDetail?.competitions ?? []);
 
   return (
     <Card className="w-full max-w-2xl mx-auto p-4">

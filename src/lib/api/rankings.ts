@@ -1,5 +1,6 @@
 import { CupRanking } from "@/types/rankings";
 import { AthleteSeasonRankings } from "@/types/athletes";
+import { fetchJson } from "./fetchJson";
 
 const CUP_TYPES = [
   "SWTS",
@@ -25,11 +26,11 @@ export async function getCupRankingsForAthlete({
 }): Promise<AthleteSeasonRankings> {
   const results = await Promise.all(
     CUP_TYPES.map(async (type) => {
-      const res = await fetch(
+      const ranking = await fetchJson<CupRanking>(
         `https://www.biathlonresults.com/modules/sportapi/api/CupResults?CupId=BT${seasonId}SWRLCP__${type}`,
         { cache: "no-store" }
       );
-      const ranking: CupRanking = await res.json();
+      if (!ranking?.Rows) return null;
       const row = ranking.Rows.find((r) => r.IBUId === ibuId) ?? null;
       if (!row) return null;
       return {
