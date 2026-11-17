@@ -14,6 +14,9 @@ export async function getEvents({
   );
 
   const data = await response.json();
+  if (!response.ok || !Array.isArray(data)) {
+    throw new Error(`Unexpected Events response (status ${response.status})`);
+  }
   return data;
 }
 
@@ -29,13 +32,17 @@ export async function getEventWithDetailsById({
     { cache: "no-store" },
   );
 
-  const eventData: Event[] = await eventRes.json();
+  const eventJson = await eventRes.json();
+  const eventData: Event[] = Array.isArray(eventJson) ? eventJson : [];
 
   const competitionsRes = await fetch(
     `https://www.biathlonresults.com/modules/sportapi/api/Competitions?EventId=${eventId}`,
     { cache: "no-store" },
   );
-  const competitionData = await competitionsRes.json();
+  const competitionJson = await competitionsRes.json();
+  const competitionData = Array.isArray(competitionJson)
+    ? competitionJson
+    : null;
 
   return {
     event: eventData.find((event) => event.EventId === eventId),
