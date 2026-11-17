@@ -7,24 +7,20 @@ export default async function Home({
 }: {
   searchParams: Promise<{ seasonId: string }>;
 }) {
-  let athletes = [];
   let events: Event[] = [];
   const seasonId = (await searchParams).seasonId ?? DEFAULT_SEASON;
 
-  try {
-    const res = await fetch(`${process.env.DOMAIN_URL}/api/athletes`, {
-      cache: "no-store",
-    });
-    athletes = await res.json();
-  } catch (error) {
-    console.error("Erreur lors du fetch :", error);
-  }
   try {
     const eventRes = await fetch(
       `${process.env.DOMAIN_URL}/api/events?seasonId=${seasonId}&level=1`,
       { cache: "no-store" }
     );
-    events = await eventRes.json();
+    const data = await eventRes.json();
+    if (eventRes.ok && Array.isArray(data)) {
+      events = data;
+    } else {
+      console.error("Unexpected events response", eventRes.status, data);
+    }
   } catch (error) {
     console.error("Erreur lors du fetch :", error);
   }

@@ -1,6 +1,7 @@
 import { CompetitionsTable } from "@/components/competitions/competitionsTable";
 import { Competition, DEFAULT_SEASON } from "@/types/competitions";
 import { Event } from "@/types/events";
+import { notFound } from "next/navigation";
 
 interface EventPageProps {
   params: Promise<{
@@ -18,6 +19,11 @@ export default async function EventPage({
   const res = await fetch(
     `${process.env.DOMAIN_URL}/api/events/${id}?seasonId=${seasonId}`
   );
+
+  if (!res.ok) {
+    console.error("Unexpected event detail response", res.status);
+    notFound();
+  }
 
   const eventDetail: { event: Event; competitions: Competition[] } =
     await res.json();
